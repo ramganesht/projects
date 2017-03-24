@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			#container {
+				height: 50px;
+			    position: fixed;
+			    top: 0;
+			    bottom: 0;
+			    left: 0;
+			    right: 0;
+			    margin: auto;
+			}
+			#progressbarholder {
+				border: solid 1px black;
+			    height: 20px;
+			    margin: auto;
+			    left: 0;
+			    right: 0;
+			    border-radius: 20px;
+			    width: 60%;
+			    background-color: lightblue;
+			}
+			#startStop {
+				position: fixed;
+			    margin: auto;
+			    left: 0;
+			    right: 0;
+			    border-radius: 20px;
+			    width: 100px;
+			    height: 30px;
+			    margin-top: 10px;
+			}
+			.progressbar{
+				background-color: green;
+			    width: 0%;
+			    height: 100%;
+			    border-radius: 20px;
+			}
+			.progressbarlabel{
+				margin: auto;
+			    left: 0;
+			    right: 0;
+			    width: 20px;
+			}
+		</style>
+		<script type="text/javascript">
+			var barPercentage = 0, barLoader;
+			function startStopBar() {
+				document.getElementById("startStop").innerHTML==="Start"?startBar():stopBar();
+			}
+			function startBar(){
+				var barElement = document.getElementsByClassName("progressbar")[0],
+				barElementLabel = document.getElementsByClassName("progressbarlabel")[0];
+				document.getElementById("startStop").innerHTML="Stop!";
+				barLoader = setInterval(function(){
+					barPercentage++;
+					barElement.style.width = barPercentage + "%";
+					barElementLabel.innerHTML = barPercentage + "%"
+					if(barPercentage===100){
+						barPercentage=0;
+						stopBar();
+					}
+				}.bind(this), 200);
+			}
+			function stopBar(){
+				document.getElementById("startStop").innerHTML="Start";
+				clearInterval(barLoader);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="progressbarholder">
+				<div class="progressbar">
+					<div class="progressbarlabel"></div>
+				</div>
+			</div>
+			<div>
+				<button type="button" id="startStop" onclick="startStopBar()">Start</button>
+			</div>
+		</div>
+	</body>
+</html>
